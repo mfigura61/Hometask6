@@ -46,5 +46,42 @@ sh-4.2# mount | grep root
 В строке начинающейся с linux16 заменяем ro на rw init=/sysroot/bin/sh и нажимаем сtrl-x для загрузки в систему. От прошлого примера отличается только тем, что файловая система сразу смонтирована в режим Read-Write  
 
 4. Установка с LVM. На системе с LVM переименовываем VG.
+Посмотрим, что есть в системе сейчас:
+
+[root@localhost ~]# vgs
+
+VG #PV #LV #SN Attr VSize VFree
+
+centos 1 2 0 wz--n- <7.00g 0
+
+Обращаем внимание на строку с именем *centos*
+
+Приступим к переименованию:
+
+[root@localhost ~]# vgrename centos OtusRoot
+
+Volume group "centos" successfully renamed to "OtusRoot"
+
+Подравим конфигурационные файлы:
+
+[root@localhost ~]# sed -i 's/centos/otusroot/g' /boot/grub2/grub.cfg && sed -i 's/centos/otusroot/g' /etc/fstab
+
+Пересоздаем initrd image, чтобы он знал новое название Volume Group*
+
+[root@localhost ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+много всего...
+...
+
+*** Creating image file done ***
+
+*** Creating initramfs image file '/boot/initramfs-3.10.0-1127.el7.x86_64.img' done ***
+
+Перезагружаем систему и проверяем успешную загрузку с новым именем:
+
+[root@localhost ~]# vgs
+
+VG #PV #LV #SN Attr VSize VFree
+
+OtusRoot 1 2 0 wz--n- <7.00g 0
 
 
