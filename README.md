@@ -143,6 +143,7 @@ echo " continuing...."
 
 Теперь пересоберем образ initrd и при загрузке видим наш рисунок
 
-> [root@localhost ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+> [root@localhost ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)  
+
 > [root@localhost ~]# dracut -f -v
 
