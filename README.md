@@ -31,3 +31,13 @@ sh-4.2# mount -o remount,rw /
 sh-4.2# mount | grep root
 
 /dev/mapper/centos-root on /type xfs (rw,realtime,attr2,inode64,noquota)  
+
+2.  Способ 2. rd.break
+
+В конце строки начинающейся с linux16 добавляем rd.break и нажимаем сtrl-x для загрузки в систему.
+Попадаем в emergency mode. Наша корневая файловая система смонтирована опять же в режиме Read-Only, но мы не в ней.Выполняем команду перемонтирования корня для чтения и записи - mount -o remount,rw /sysroot, далее chroot /sysroot.  
+
+Теперь мы можем поменять пароль, выполнив команду passwd или passwd root.
+
+После смены пароля необходимо создать скрытый файл .autorelabel в /, выполнив touch /.autorelabel, этот файл нужен, для того чтобы выполнить relabel файлов в системе.
+Делаем ребут.Загрузка произошла, теперь мы можем зайти под root, введя измененный пароль.
