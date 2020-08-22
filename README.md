@@ -139,7 +139,7 @@ Hello! You are in dracut module!
 msgend
 sleep 10
 echo " continuing...."   
-
+```
 
 Теперь пересоберем образ initrd и при загрузке видим наш рисунок
 
