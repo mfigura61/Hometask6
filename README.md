@@ -116,17 +116,19 @@ install() {
     inst_hook cleanup 00 "${moddir}/test.sh" # Запускает скрипт
 }  
 
+
 В файле test.sh:
  
-> #!/bin/bash
+```#!/bin/bash
 
-> cat <<'msgend'
-> Hello! You are in dracut module!
-> ___________________
-> < I'm dracut module >
->  -------------------
->   \   
-     \
+exec 0<>/dev/console 1<>/dev/console 2<>/dev/console
+cat <<'msgend'
+Hello! You are in dracut module!
+ ___________________
+< I'm dracut module >
+ -------------------
+   \
+    \
         .--.
        |o_o |
        |:_/ |
@@ -134,11 +136,9 @@ install() {
      (|     | )
     /'\_   _/`\
     \___)=(___/
-> msgend  
-
-> sleep 10  
-
-> echo " continuing...." 
+msgend
+sleep 10
+echo " continuing...."```
 
 
 
