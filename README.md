@@ -138,9 +138,10 @@ Hello! You are in dracut module!
     \___)=(___/
 msgend
 sleep 10
-echo " continuing...." ```
+echo " continuing...."   
 
-теперь пересоберем образ initrd и при загрузке видим наш рисунок
+
+Теперь пересоберем образ initrd и при загрузке видим наш рисунок
 
 > [root@localhost ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
 > [root@localhost ~]# dracut -f -v
