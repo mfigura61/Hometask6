@@ -118,7 +118,7 @@ install() {
 
 В файле test.sh:
 
-#!/bin/bash
+> #!/bin/bash
 
 cat <<'msgend'
 Hello! You are in dracut module!
