@@ -84,4 +84,59 @@ VG #PV #LV #SN Attr VSize VFree
 
 OtusRoot 1 2 0 wz--n- <7.00g 0
 
+5. Добавить модуль в initrd
+
+Скрипты модулей хранятся в каталоге /usr/lib/dracut/modules.d/. Для того чтобы добавить свой модуль создаем там папку с именем 01test:
+
+[root@localhost ~]# mkdir /usr/lib/dracut/modules.d/01test
+
+В нее поместим два скрипта:
+
+1.module-setup.sh - который устанавливает модуль и вызывает скрипт test.sh
+
+2.test.sh - собственно сам вызываемый скрипт, в нём у нас рисуется пингвинчик.
+
+[root@localhost ~]# ls -a
+
+. .. module-setup.sh test.sh  
+
+В скрипт module-setup.sh вписываем:  
+
+#!/bin/bash
+
+check() { # Функция, которая указывает что модуль должен быть включен по умолчанию
+    return 0
+}
+
+depends() { # Выводит все зависимости от которых зависит наш модуль
+    return 0
+}
+
+install() {
+    inst_hook cleanup 00 "${moddir}/test.sh" # Запускает скрипт
+}  
+
+В файле test.sh:
+
+#!/bin/bash
+
+cat <<'msgend'
+Hello! You are in dracut module!
+ ___________________
+< I'm dracut module >
+ -------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+msgend
+sleep 10
+echo " continuing...."  
+
+
 
