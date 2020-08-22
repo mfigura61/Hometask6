@@ -141,7 +141,7 @@ sleep 10
 echo " continuing...."   
 ```
 
-Теперь пересоберем образ initrd и при загрузке видим наш рисунок
+Теперь пересоберем образ initrd и при загрузке видим наш рисунок (Скрин3)
 
 > [root@localhost ~]# mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)  
 
